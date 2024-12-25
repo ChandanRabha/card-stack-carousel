@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import getRandomHexColor from "./utils/getRandomHexColor";
 import useBreakpoints from "./hooks/useBreakpoints";
 
 import styles from "./App.styles"
@@ -29,6 +30,30 @@ const props: IItems[] = [
   },
   {
     title: "Title 3",
+    description: "test description",
+    author: "Test Author",
+    image: ""
+  },
+  {
+    title: "Title 4",
+    description: "test description",
+    author: "Test Author",
+    image: ""
+  },
+  {
+    title: "Title 5",
+    description: "test description",
+    author: "Test Author",
+    image: ""
+  },
+  {
+    title: "Title 6",
+    description: "test description",
+    author: "Test Author",
+    image: ""
+  },
+  {
+    title: "Title 7",
     description: "test description",
     author: "Test Author",
     image: ""
@@ -65,7 +90,7 @@ function App() {
   }, [navigateCounter]);
 
   const carouselButtons = useMemo(() => {
-    if (breakpoints.MD) {
+    if (breakpoints.LG) {
       return (
         <div className={styles.navButtonsContainer}>
           <button
@@ -89,31 +114,35 @@ function App() {
     }
 
     return <></>;
-  }, [breakpoints.MD, handleClick, navigateCounter]);
+  }, [breakpoints.LG, handleClick, navigateCounter]);
 
   useEffect(() => {
-    if (!breakpoints.MD) {
+    if (!breakpoints.LG) {
       setNavigateCounter(0);
     }
-  }, [breakpoints.MD]);
+  }, [breakpoints.LG]);
 
   return (
     <div className={styles.mainContainer}>
-      <h2 className={styles.textWhite}>Nav Buttons and card animation appear when screen size is less than 768</h2>
+      <h2 className={styles.textWhite}>Nav Buttons and card animation appear when screen size is less than 1024</h2>
       <div className={styles.carouselContainer}>
-        {props.map((item, index) => (
-          <div
-            key={index}
-            className={`${styles.carouselItem} ${index + 1 <= navigateCounter ? styles.prevCarouselItem : ""}`}
-            style={{ transform: transformCss(index) }}
-          >
-            <div className={styles.imageContainer}>
+        {props.map((item, index) => {
+          const color = getRandomHexColor();
 
+          return (
+            <div
+              key={index}
+              className={`${styles.carouselItem} ${index + 1 <= navigateCounter ? styles.prevCarouselItem : ""}`}
+              style={{ transform: transformCss(index), backgroundColor: `${color}`, boxShadow: `5px 6px 6px white` }}
+            >
+              <div className={styles.imageContainer}>
+
+              </div>
+              <h3 className={styles.itemTitle}>{item.title}</h3>
+              <p className={styles.itemDesc}>{item.description}</p>
             </div>
-            <h3 className={styles.itemTitle}>{item.title}</h3>
-            <p className={styles.itemDesc}>{item.description}</p>
-          </div>
-        ))}
+          )
+        })}
       </div>
       {carouselButtons}
     </div>
