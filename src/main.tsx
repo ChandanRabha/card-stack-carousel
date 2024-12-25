@@ -8,5 +8,5 @@ createRoot(document.getElementById('root')!).render(
     <Suspense fallback={<div>Loading...</div>}>
       <App />
     </Suspense>
-  </StrictMode>,
+  </StrictMode>
 )
